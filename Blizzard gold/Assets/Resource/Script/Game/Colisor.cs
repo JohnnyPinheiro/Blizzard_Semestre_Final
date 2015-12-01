@@ -5,23 +5,17 @@ using System.Collections;
 
 public class Colisor : MonoBehaviour {
 
-	public GameObject invisible;
-
 	//points
-	public static int record;
-	//public Text recordText;
-	public static int mapas;
+	public static int record;//public Text recordText;
 	
 	void start(){
 		PlayerPrefs.GetInt("recordPrefs"); //load no meu recorde
 		record = PlayerPrefs.GetInt("recordPrefs");// passa o valor do meu recorde para a variavel record(que faz a comparação quando tem a colisão com o personagem)
-		mapas = 0;
 	}
 
 	
 
 	void OnCollisionEnter(Collision collisionInfo){
-		
 		if(collisionInfo.gameObject.tag == "GameOver"){
 		//quando houver colisão	com algum obstaculo que faça ir para o game over
 			PlayerPrefs.SetInt("scorePrefs", Pontos.points);//passo o valor de Pontos.points para o PlayerPrefs(scorePrefs)
@@ -33,11 +27,6 @@ public class Colisor : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(other.tag == "Prox"){
-			//invisible.GetComponent<VectorMap>().CreateMap();
-			print("bateu");
-			mapas++;
-		}
 		if(other.tag == "Coin"){
 			Destroy(other.gameObject);//destroi o objeto coletado
 			Pontos.points += 1; //faz a soma dos pontos em +1 toda vez que uma moeda é coletada

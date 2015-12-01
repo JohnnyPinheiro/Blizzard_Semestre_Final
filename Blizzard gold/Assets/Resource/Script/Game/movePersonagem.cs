@@ -33,16 +33,11 @@ public class movePersonagem : MonoBehaviour {
 	}
 	
 	void Update () {
-
-		controlarOStart = 6;	
-		//Physics.gravity = new Vector3(0, -gravity, 0);
-	
-		//if (!inicio && Input.GetMouseButton (0)) {
-			//rigd.AddForce(0,0,-80, ForceMode.Impulse);
-			//inicio = true;
-		//}
+		controlarOStart += 1 *Time.deltaTime;	
 		
-		Move ();
+		if(controlarOStart >=5){
+			Move ();
+		}
 	}
 
 	void OnCollisionEnter(Collision collisionInfo){
