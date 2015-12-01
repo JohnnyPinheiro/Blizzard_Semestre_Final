@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Maps : MonoBehaviour {
-
+/*
 	// Use this for initialization
 	void Start () {
 
@@ -13,5 +13,5 @@ public class Maps : MonoBehaviour {
 		VectorMap.count++;
 	
 	}
-
+*/
 }

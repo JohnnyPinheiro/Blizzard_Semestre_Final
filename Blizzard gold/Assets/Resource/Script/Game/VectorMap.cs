@@ -3,42 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class VectorMap : MonoBehaviour {
-//maps inclinado	
 	//lista de pistas totais
 	public GameObject[]Maps;
 	//lista das pistas instanciadas e atualizadas
-	static List <GameObject> atual;
-	static public int count;
-	static public int size=2500;
-	static int num;
-	private static int i;
-
+	List <GameObject> atual;
 
 	// Use this for initialization
 	void Start () {
-	   count=0;
-	   i = 0;
 		atual = new List<GameObject>();
-		atual.Add ((GameObject)Instantiate (Maps [0],transform.position, Maps [0].transform.rotation));
-		atual.Add ((GameObject)Instantiate (Maps [0],transform.position + new Vector3(-0,-3.1f,35) , Maps [0].transform.rotation));
+		//Random.Range(0,4)
+		//instancia 4 mapas iniciais para para fazer ficar fora do angulo da camera.
+		atual.Add ((GameObject)Instantiate (Maps [0],transform.position, Quaternion.identity));// passar sempre de padrão a fase inicial nesta posição.
+		atual.Add ((GameObject)Instantiate (Maps [0],transform.position+new Vector3(0,0,34), Quaternion.identity));//pode usar random
+		atual.Add ((GameObject)Instantiate (Maps [0],transform.position+new Vector3(0,0,68), Quaternion.identity));//pode usar random
+		atual.Add ((GameObject)Instantiate (Maps [0],transform.position+new Vector3(0,0,102), Quaternion.identity));//pode usar random
 	}
 	
-	void Update(){
-		CreateMap();
-	}
+	void Update () {
+		//for de criação de mapa com movimentação  
+		for(int i=0;i<atual.Count;i++){
+			atual[i].transform.Translate(0,0,-0.1f);
+			if(atual[i].transform.position.z < -34 ){
+				Destroy(atual[i]);
+				atual.Remove(atual[i]);
+				//instancia outro
+				atual.Add ((GameObject)Instantiate (Maps [0],transform.position+new Vector3(0,0,102), Quaternion.identity));
 
-	public  void CreateMap(){
-	if (i >= 20) {
-	//controlador
-		i = 21;
-		} else {
-			for (i = 1; i <= 20; i++) {
-				atual.Add ((GameObject)Instantiate (Maps [0],transform.position + new Vector3(-0*i,-3.1f*i,35*i) , Maps [0].transform.rotation));
+				break;
 			}
 		}
+
 	}
-
-
 }
 
 
