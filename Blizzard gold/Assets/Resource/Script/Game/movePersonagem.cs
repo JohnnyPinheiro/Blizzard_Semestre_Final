@@ -20,7 +20,6 @@ public class movePersonagem : MonoBehaviour {
 	private bool isMovingRight;
 	private bool isMovingLeft;
 	
-	
 	void Start () {
 		rigd = GetComponent <Rigidbody>();
 		animator = GetComponentInChildren<Animator>();
@@ -97,5 +96,4 @@ public class movePersonagem : MonoBehaviour {
 		isMovingLeft = false;
 		//
 	}
-
 }
