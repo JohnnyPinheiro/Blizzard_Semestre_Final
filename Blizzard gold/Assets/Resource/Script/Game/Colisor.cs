@@ -7,10 +7,11 @@ public class Colisor : MonoBehaviour {
 
 	//points
 	public static int record;//public Text recordText;
-	
+	public static bool isGame;
 	void start(){
 		PlayerPrefs.GetInt("recordPrefs"); //load no meu recorde
 		record = PlayerPrefs.GetInt("recordPrefs");// passa o valor do meu recorde para a variavel record(que faz a comparação quando tem a colisão com o personagem)
+		//isGame = true;
 	}
 
 	
@@ -18,11 +19,15 @@ public class Colisor : MonoBehaviour {
 	void OnCollisionEnter(Collision collisionInfo){
 		if(collisionInfo.gameObject.tag == "GameOver"){
 		//quando houver colisão	com algum obstaculo que faça ir para o game over
+			isGame = true;
+			print("Bateu");
 			PlayerPrefs.SetInt("scorePrefs", Pontos.points);//passo o valor de Pontos.points para o PlayerPrefs(scorePrefs)
 			if(Pontos.points > PlayerPrefs.GetInt("recordPrefs")){//verifico se esta pontuação nova é maior que meu recorde
 				PlayerPrefs.SetInt("recordPrefs", Pontos.points);//se for maior que meu recorde ele salva o novo recorde
 			}
-			Application.LoadLevel("GameOver");
+			
+		}else{
+			isGame = false;
 		}
 	}
 

@@ -22,21 +22,21 @@ public class VectorMap : MonoBehaviour {
 	
 	void Update () {
 		//for de criação de mapa com movimentação  
-		for(int i=0;i<atual.Count;i++){
-			atual[i].transform.Translate(0,0,-0.1f);
-			
-			if(atual[i].transform.position.z < -34.8f ){
-				Destroy(atual[i]);
-				atual.Remove(atual[i]);
-				//instancia outro
+		if(Colisor.isGame == false){
+			for(int i=0;i<atual.Count;i++){
+				atual[i].transform.Translate(0,0,-0.1f);
+				
+				if(atual[i].transform.position.z < -34.8f ){
+					Destroy(atual[i]);
+					atual.Remove(atual[i]);
+					//instancia outro
 
-				num = Random.Range(2,Maps.Length);
-				atual.Add ((GameObject)Instantiate (Maps [num],transform.position+new Vector3(0,0,104.4f), Quaternion.identity));
-				print(num);
-				break;
+					num = Random.Range(2,Maps.Length);
+					atual.Add ((GameObject)Instantiate (Maps [num],transform.position+new Vector3(0,0,104.4f), Quaternion.identity));
+					break;
+				}
 			}
 		}
-
 	}
 }
 

@@ -30,15 +30,15 @@ public class Pontos : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		txtDistancia.text = txtDistance.ToString();
-		//timeStart.text = txtTimeStart.ToString();
-		txtScores.text = points.ToString();
-		controlerScore +=1 * Time.deltaTime;
-		if(controlerScore >=5 ){
-			distancia += 1 *Time.deltaTime *30; // multiplicar...
-			txtDistance = (int) distancia;
-
+		if(Colisor.isGame == false){
+			txtDistancia.text = txtDistance.ToString();
+			//timeStart.text = txtTimeStart.ToString();
+			txtScores.text = points.ToString();
+			controlerScore +=1 * Time.deltaTime;
+			if(controlerScore >=5 ){
+				distancia += 1 *Time.deltaTime *30; // multiplicar...
+				txtDistance = (int) distancia;
+			}
 		}
-
 	}
 }
