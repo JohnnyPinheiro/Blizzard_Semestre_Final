@@ -13,6 +13,8 @@ public class VectorMap : MonoBehaviour {
 
 	//acelerador
 	private float acelera;
+	private float controlerTimer;
+	private float aceleraBoster;
 
 	// Use this for initialization
 	void Start () {
@@ -24,15 +26,30 @@ public class VectorMap : MonoBehaviour {
 		atual.Add ((GameObject)Instantiate (Maps [2],transform.position+new Vector3(0,0,69.6f), Quaternion.identity));//pode usar random
 		atual.Add ((GameObject)Instantiate (Maps [2],transform.position+new Vector3(0,0,104.4f), Quaternion.identity));//pode usar random
 		acelera = -0.1f;
+		controlerTimer = 3;
+		aceleraBoster = 0;
 	}
 	
 	void Update () {
 		//for de criação de mapa com movimentação  
 		if(Colisor.isGame == true){
-			acelera -= 0.001f * Time.deltaTime; //acelerando o game aos poucos
+			if(Colisor.isBooster ==  true && controlerTimer >= 0){//almenta a velocidade por 3segundos quando pega o booster 
+				controlerTimer -=1 *Time.deltaTime;
+				print("correndo");
+				aceleraBoster = acelera*2; 
+				print("com boster " + aceleraBoster);
+			}else{
+				Colisor.isBooster = false;
+				acelera -= 0.001f * Time.deltaTime; //acelerando o game aos poucos
+				print("sem boster "+ acelera);
+				controlerTimer =3;
+			}
 			for(int i=0;i<atual.Count;i++){
-				atual[i].transform.Translate(0,0,acelera);
-				
+				if(Colisor.isBooster){
+					atual[i].transform.Translate(0,0,aceleraBoster);
+				}else{
+					atual[i].transform.Translate(0,0,acelera);
+				}
 				if(atual[i].transform.position.z < -34.8f ){
 					Destroy(atual[i]);
 					atual.Remove(atual[i]);

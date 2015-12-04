@@ -12,10 +12,14 @@ public class Colisor : MonoBehaviour {
 	public Canvas NewRecord;
 	private bool isRecord;
 
+	//Boosters Game
+	public static bool isBooster;
+
 	void start(){
 		PlayerPrefs.GetInt("recordPrefs"); //load no meu recorde
 		record = PlayerPrefs.GetInt("recordPrefs");// passa o valor do meu recorde para a variavel record(que faz a comparação quando tem a colisão com o personagem)
 		isRecord = false;
+		isBooster = false;
 	}		
 
 
@@ -46,6 +50,17 @@ public class Colisor : MonoBehaviour {
 		if(other.tag == "Coin"){
 			Destroy(other.gameObject);//destroi o objeto coletado
 			Pontos.points += 1; //faz a soma dos pontos em +1 toda vez que uma moeda é coletada
+		}
+		if(other.tag == "Booster"){
+			Destroy(other.gameObject);//destroi o objeto coletado
+			print("Boster velocidade");
+			isBooster = true;
+		}if(other.tag == "Jump"){
+			Destroy(other.gameObject);//destroi o objeto coletado
+			print("Boster jump");
+		}if(other.tag == "Shild"){
+			Destroy(other.gameObject);//destroi o objeto coletado
+			print("Boster defesa ou vida");
 		}
 	}
 }
