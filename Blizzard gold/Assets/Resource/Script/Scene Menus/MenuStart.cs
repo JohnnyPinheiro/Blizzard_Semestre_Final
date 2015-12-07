@@ -3,6 +3,12 @@ using System.Collections;
 
 public class MenuStart : MonoBehaviour {
 
+  	//splashcreen
+  	public GameObject cam;
+	public GameObject splash;
+	private float speed = .5f;
+	private float z;
+
 	//PopUps
 	public Canvas popUpShop;
 	public Canvas popUpInformations;
@@ -24,6 +30,7 @@ public class MenuStart : MonoBehaviour {
 	}
 
 	void Update(){
+		//Splashscreen();
 		if (controllerPopUp == 0) {//Menu
 			popUpExit.enabled = false;
 			popUpInformations.enabled = false;
@@ -83,5 +90,15 @@ public class MenuStart : MonoBehaviour {
 
 	public void ClosePopUp(){
 		controllerPopUp =0;
+	}
+
+	void Splashscreen(){//passa a logo outline antes de menu principal
+		z = transform.position.z;
+		z += speed * Time.deltaTime;
+		splash.transform.position = new Vector3(transform.position.x, transform.position.y, z);
+	
+		if (splash.transform.position.z >105){
+			Destroy (splash);
+		}
 	}
 }
