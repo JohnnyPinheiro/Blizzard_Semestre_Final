@@ -3,13 +3,7 @@ using System.Collections;
 
 public class MenuStart : MonoBehaviour {
 
-  	//splashcreen
-  	public GameObject cam;
-	public GameObject splash;
-	private float speed = .5f;
-	private float z;
-
-	//PopUps
+  	//PopUps
 	public Canvas popUpShop;
 	public Canvas popUpInformations;
 	public Canvas popUpExit;
@@ -19,18 +13,21 @@ public class MenuStart : MonoBehaviour {
 	public Texture TextureShop;
 	public Texture TextureInfo;
 	public Texture TextureExit;
-	public Texture TextureSound;
+	public Texture TextureSoundOn;
+	public Texture TextureSoundOff;
 	
 	
 	//controladores
 	private static int controllerPopUp;
+	public static bool music;
 
 	void Start(){
 		controllerPopUp = 0;
+		music = true;
 	}
 
 	void Update(){
-		//Splashscreen();
+
 		if (controllerPopUp == 0) {//Menu
 			popUpExit.enabled = false;
 			popUpInformations.enabled = false;
@@ -53,35 +50,37 @@ public class MenuStart : MonoBehaviour {
 	
 	void OnGUI(){
 		//manda para a tela de jogo
-
-		if(controllerPopUp == 0){
-			if (GUI.Button(new Rect((Screen.width/2)-100,(Screen.height/2)-100, 200, 200), " ")){
-				Application.LoadLevel("Game");
+		if(moveSplash.isSplash == true){
+			if(controllerPopUp == 0 ){
+				if (GUI.Button(new Rect((Screen.width/2)-100,(Screen.height/2)-100, 200, 200), " ")){
+					Application.LoadLevel("Game");
+				}
+				GUI.DrawTexture(new Rect((Screen.width/2)-85,(Screen.height/2)-85, 170, 170), TexturePlay);
+				//abrira um pop up para shop
+				if (GUI.Button(new Rect(0,0, 100, 100), TextureShop)){
+					print ("shop");
+					controllerPopUp = 1;
+				}
+				//abrira um pop up para as informaçoes
+				if (GUI.Button(new Rect((Screen.width-100),(Screen.height-100), 100, 100), TextureInfo)){
+					print ("informaçoes");
+					controllerPopUp = 2;
+				}
+				//abrira um pop up para fechar o game
+				if (GUI.Button(new Rect(0,(Screen.height-100), 100, 100), TextureExit)){
+					print ("fecha game");
+					controllerPopUp = 3;
+				}
 			}
-			GUI.DrawTexture(new Rect((Screen.width/2)-85,(Screen.height/2)-85, 170, 170), TexturePlay);
-			//abrira um pop up para shop
-			if (GUI.Button(new Rect(0,0, 100, 100), TextureShop)){
-				print ("shop");
-				controllerPopUp = 1;
-			}
-			//abrira um pop up para as informaçoes
-			if (GUI.Button(new Rect((Screen.width-100),(Screen.height-100), 100, 100), TextureInfo)){
-				print ("informaçoes");
-				controllerPopUp = 2;
-			}
-			//abrira um pop up para fechar o game
-			if (GUI.Button(new Rect(0,(Screen.height-100), 100, 100), TextureExit)){
-				print ("fecha game");
-				controllerPopUp = 3;
-			}
+			// liga e deslida a musica do jogo;
+			/*if (GUI.Button(new Rect((Screen.width-100),0, 100, 100), TextureSoundOn)){
+				if(music){
+					music = false;
+				}else if(!music){
+					music = true;
+				}
+			}*/
 		}
-		// liga e deslida a musica do jogo;
-		
-		if (GUI.Button(new Rect((Screen.width-100),0, 100, 100), TextureSound)){
-			print ("para som");
-			
-		}
-		
 	}
 
 	public void Exit(){
@@ -89,16 +88,8 @@ public class MenuStart : MonoBehaviour {
 	}
 
 	public void ClosePopUp(){
-		controllerPopUp =0;
+		controllerPopUp = 0;
 	}
 
-	void Splashscreen(){//passa a logo outline antes de menu principal
-		z = transform.position.z;
-		z += speed * Time.deltaTime;
-		splash.transform.position = new Vector3(transform.position.x, transform.position.y, z);
 	
-		if (splash.transform.position.z >105){
-			Destroy (splash);
-		}
-	}
 }

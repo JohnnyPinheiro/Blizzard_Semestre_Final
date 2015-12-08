@@ -99,4 +99,11 @@ public class movePersonagem : MonoBehaviour {
 		isMovingLeft = false;
 		//
 	}
+
+	public void Pause(){
+		Colisor.isGame = false;
+	}
+	public void Return(){
+		Colisor.isGame = true;
+	}
 }

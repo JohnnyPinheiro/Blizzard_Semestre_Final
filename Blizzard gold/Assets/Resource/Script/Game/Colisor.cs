@@ -21,6 +21,8 @@ public class Colisor : MonoBehaviour {
 	private float controlerMsgGo = 2f;
 	public Text txtGo;
 
+	//desativar button
+	public Button Return;
 
 	//Boosters Game
 	public static bool isBooster;
@@ -55,6 +57,8 @@ public class Colisor : MonoBehaviour {
 		if(collisionInfo.gameObject.tag == "GameOver"){
 		//quando houver colisão	com algum obstaculo que faça ir para o game over
 			isGame = false;
+			Return.enabled = false;
+			Return.gameObject.SetActive(false);
 			PlayerPrefs.SetInt("scorePrefs", Pontos.txtDistance);//passo o valor de Pontos.points para o PlayerPrefs(scorePrefs)
 			if(Pontos.txtDistance > PlayerPrefs.GetInt("recordPrefs")){//verifico se esta pontuação nova é maior que meu recorde
 				PlayerPrefs.SetInt("recordPrefs", Pontos.txtDistance);//se for maior que meu recorde ele salva o novo recorde
