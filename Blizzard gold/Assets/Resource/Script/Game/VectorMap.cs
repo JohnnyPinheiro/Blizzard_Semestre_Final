@@ -35,13 +35,10 @@ public class VectorMap : MonoBehaviour {
 		if(Colisor.isGame == true){
 			if(Colisor.isBooster ==  true && controlerTimer >= 0){//almenta a velocidade por 3segundos quando pega o booster 
 				controlerTimer -=1 *Time.deltaTime;
-				print("correndo");
 				aceleraBoster = acelera*2; 
-				print("com boster " + aceleraBoster);
 			}else{
 				Colisor.isBooster = false;
 				acelera -= 0.001f * Time.deltaTime; //acelerando o game aos poucos
-				print("sem boster "+ acelera);
 				controlerTimer =3;
 			}
 			for(int i=0;i<atual.Count;i++){

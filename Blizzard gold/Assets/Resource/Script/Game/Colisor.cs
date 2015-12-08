@@ -11,15 +11,31 @@ public class Colisor : MonoBehaviour {
 
 	public Canvas NewRecord;
 	private bool isRecord;
+	
+	//
+	public Canvas TempInit;
+	public Canvas TxtGO;
+	public Text CountInit;
+	private float timeCount = 4f;
+	private int timeCountGame;
+	private float controlerMsgGo = 2f;
+	public Text txtGo;
+
 
 	//Boosters Game
 	public static bool isBooster;
+
+	//Audio
+	public AudioSource audio;
+	public AudioClip coinSound;
 
 	void start(){
 		PlayerPrefs.GetInt("recordPrefs"); //load no meu recorde
 		record = PlayerPrefs.GetInt("recordPrefs");// passa o valor do meu recorde para a variavel record(que faz a comparação quando tem a colisão com o personagem)
 		isRecord = false;
 		isBooster = false;
+		TempInit.enabled = true;
+		//TxtGO.enabled = false;
 	}		
 
 
@@ -29,6 +45,9 @@ public class Colisor : MonoBehaviour {
 		}else{
 			NewRecord.enabled = false;
 		}
+		TimerCountInit();
+		MsgGo();
+		print(" controler msg"+controlerMsgGo);
 	}
 
 
@@ -50,6 +69,7 @@ public class Colisor : MonoBehaviour {
 		if(other.tag == "Coin"){
 			Destroy(other.gameObject);//destroi o objeto coletado
 			Pontos.points += 1; //faz a soma dos pontos em +1 toda vez que uma moeda é coletada
+			audio.PlayOneShot(coinSound,1);
 		}
 		if(other.tag == "Booster"){
 			Destroy(other.gameObject);//destroi o objeto coletado
@@ -61,6 +81,26 @@ public class Colisor : MonoBehaviour {
 		}if(other.tag == "Shild"){
 			Destroy(other.gameObject);//destroi o objeto coletado
 			print("Boster defesa ou vida");
+		}
+	}
+
+	void TimerCountInit(){
+		if(timeCount >= 0){
+			timeCount -= 1 * Time.deltaTime;
+			CountInit.text = timeCountGame.ToString();
+			timeCountGame = (int) timeCount;
+		}else{
+			TempInit.enabled = false;
+			TxtGO.enabled = true;
+		}
+	}
+
+	void MsgGo(){
+		if(controlerMsgGo >= 0 && timeCount<0 ){
+			controlerMsgGo -= 1*Time.deltaTime;
+			txtGo.text = "GO";
+		}else{
+			TxtGO.enabled = false;
 		}
 	}
 }

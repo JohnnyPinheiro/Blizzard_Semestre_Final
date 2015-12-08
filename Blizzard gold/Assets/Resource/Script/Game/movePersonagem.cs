@@ -19,6 +19,7 @@ public class movePersonagem : MonoBehaviour {
 	//controler moviments
 	private bool isMovingRight;
 	private bool isMovingLeft;
+	private bool controllerJump;
 	
 	void Start () {
 		rigd = GetComponent <Rigidbody>();
@@ -28,6 +29,7 @@ public class movePersonagem : MonoBehaviour {
 		start = 1;
 		isMovingRight = false;
 		isMovingLeft = false;
+		controllerJump = false;
 		Physics.gravity = new Vector3(0, -gravity, 0);
 	}
 	
@@ -36,6 +38,7 @@ public class movePersonagem : MonoBehaviour {
 		
 		if(controlarOStart >=5){
 			Move ();
+			controllerJump = true;
 		}
 	}
 
@@ -49,7 +52,7 @@ public class movePersonagem : MonoBehaviour {
 	}
 
 	public void jumping(){
-		if(!jump){
+		if(!jump && controllerJump){
 			rigd.AddForce(0,forcejump,0, ForceMode.Impulse);
 			jump = true;
 			animator.SetBool("isJump", true);
