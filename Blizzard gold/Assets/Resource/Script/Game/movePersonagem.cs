@@ -40,9 +40,18 @@ public class movePersonagem : MonoBehaviour {
 			Move ();
 			controllerJump = true;
 		}
+		Debug.Log("Update time :" + Time.deltaTime);
 	}
+	void FixedUpdate ()
+	{
+		Debug.Log("FixedUpdate time :" + Time.deltaTime);
+	}
+	
+	
 
-	void OnCollisionEnter(Collision collisionInfo){
+
+	
+void OnCollisionEnter(Collision collisionInfo){
 		if(collisionInfo.gameObject.tag == "Ground"){
 			//so para voltar o pulo
 			jump = false;
