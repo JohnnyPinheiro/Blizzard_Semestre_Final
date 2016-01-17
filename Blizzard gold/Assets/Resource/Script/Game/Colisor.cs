@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-//using UnityStandardAssets.CrossPlatformInput;
 
 public class Colisor : MonoBehaviour {
 
@@ -9,9 +8,14 @@ public class Colisor : MonoBehaviour {
 	public static int record;//public Text recordText;
 	public static bool isGame;
 
+    //coins
+    public static int Coins;//public text coins text;
+
 	public Canvas NewRecord;
 	private bool isRecord;
-	
+
+    public Canvas CoinsColections;
+    private bool isCoins;
 	//
 	public Canvas TempInit;
 	public Canvas TxtGO;
@@ -36,20 +40,33 @@ public class Colisor : MonoBehaviour {
 		record = PlayerPrefs.GetInt("recordPrefs");// passa o valor do meu recorde para a variavel record(que faz a comparação quando tem a colisão com o personagem)
 		isRecord = false;
 		isBooster = false;
-		TempInit.enabled = true;
-		//TxtGO.enabled = false;
-	}		
+        isCoins = false;
+        TempInit.enabled = true;
+        
+
+    
+    }		
 
 
 	void Update(){
 		if(Colisor.isGame == false && isRecord){
 			NewRecord.enabled = true;
+          
 		}else{
 			NewRecord.enabled = false;
+           
 		}
+        if(Colisor.isGame == false && isCoins)
+        {
+            CoinsColections.enabled = true;
+        }
+        else
+        {
+            CoinsColections.enabled = false;
+        }
 		TimerCountInit();
 		MsgGo();
-		print(" controler msg"+controlerMsgGo);
+		
 	}
 
 
@@ -59,14 +76,19 @@ public class Colisor : MonoBehaviour {
 			isGame = false;
 			Return.enabled = false;
 			Return.gameObject.SetActive(false);
-			PlayerPrefs.SetInt("scorePrefs", Pontos.txtDistance);//passo o valor de Pontos.points para o PlayerPrefs(scorePrefs)
-			if(Pontos.txtDistance > PlayerPrefs.GetInt("recordPrefs")){//verifico se esta pontuação nova é maior que meu recorde
+            isCoins = true;
+        
+            PlayerPrefs.SetInt("scorePrefs", Pontos.txtDistance);//passo o valor de Pontos.points para o PlayerPrefs(scorePrefs)
+          
+            if (Pontos.txtDistance > PlayerPrefs.GetInt("recordPrefs")){//verifico se esta pontuação nova é maior que meu recorde
 				PlayerPrefs.SetInt("recordPrefs", Pontos.txtDistance);//se for maior que meu recorde ele salva o novo recorde
 				isRecord = true;
-			}
+                
+            }
 		}else{
 			isGame = true;
-		}
+            
+        }
 	}
 
 	void OnTriggerEnter(Collider other){
@@ -107,4 +129,6 @@ public class Colisor : MonoBehaviour {
 			TxtGO.enabled = false;
 		}
 	}
+
+    
 }

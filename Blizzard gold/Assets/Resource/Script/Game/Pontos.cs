@@ -12,11 +12,13 @@ public class Pontos : MonoBehaviour {
 	public Text txtDistancia;
 	public static float distancia;
 	public static int txtDistance;
-	public Text popUp;
+
+    public Text popUp;
 	public static int txtPopUp;
-	//public Text timeStart;
+	
 	public Text txtScores;
 	public static int points;
+    public static int txtPoints;
 
 	//controla o inicio da contagem.
 	private float controlerScore;
@@ -27,6 +29,7 @@ public class Pontos : MonoBehaviour {
 	void Start () {
 		distancia = 0;
 		txtDistance = 0;
+        txtPoints = 0;
 		screenTime =5;
 		points = 0;
 		PlayerPrefs.SetFloat("Distancia", distancia);
@@ -40,6 +43,7 @@ public class Pontos : MonoBehaviour {
 		if(Colisor.isGame == true){
 			txtDistancia.text = txtDistance.ToString();
 			popUp.text = txtDistance.ToString();
+        
 			//timeStart.text = txtTimeStart.ToString();
 			txtScores.text = points.ToString();
 			controlerScore +=1 * Time.deltaTime;
