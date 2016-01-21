@@ -7,6 +7,7 @@ public class Pontos : MonoBehaviour {
 	//Inative image buttons
 	public Canvas Buttons;
 	public Canvas Scores;
+    
 
 
 	public Text txtDistancia;
@@ -46,7 +47,10 @@ public class Pontos : MonoBehaviour {
         
 			//timeStart.text = txtTimeStart.ToString();
 			txtScores.text = points.ToString();
-			controlerScore +=1 * Time.deltaTime;
+            DATACoins.Money = points;
+
+            print("game : " +DATACoins.Money);
+        controlerScore +=1 * Time.deltaTime;
 			if(controlerScore >=5 ){
 				distancia += 1 *Time.deltaTime *30; // multiplicar...
 				txtDistance = (int) distancia;

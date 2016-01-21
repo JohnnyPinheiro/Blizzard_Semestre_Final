@@ -56,15 +56,7 @@ public class Colisor : MonoBehaviour {
 			NewRecord.enabled = false;
            
 		}
-        if(Colisor.isGame == false && isCoins)
-        {
-            CoinsColections.enabled = true;
-        }
-        else
-        {
-            CoinsColections.enabled = false;
-        }
-		TimerCountInit();
+       TimerCountInit();
 		MsgGo();
 		
 	}
